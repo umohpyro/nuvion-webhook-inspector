@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Figtree, Geist_Mono } from "next/font/google";
 import { Suspense } from "react";
-import { SiteHeader } from "@/components/site-header";
+import { SideNav, TopBar } from "@/components/site-header";
 import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
@@ -22,15 +22,18 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <script dangerouslySetInnerHTML={{ __html: `try{var t=localStorage.getItem("theme")||"system";if(t==="dark"||(t==="system"&&matchMedia("(prefers-color-scheme: dark)").matches))document.documentElement.classList.add("dark")}catch(e){}` }} />
       </head>
       <body className="flex min-h-full flex-col">
-        {/* usePathname() reads the URL, so the header streams in behind a placeholder of the same height. */}
-        <Suspense fallback={<div className="h-[57px] bg-band" />}>
-          <SiteHeader />
+        {/* usePathname() reads the URL, so the navigation streams in behind a placeholder of the same size. */}
+        <Suspense fallback={<div className="h-[97px] bg-band lg:hidden" />}>
+          <TopBar />
+          <SideNav />
         </Suspense>
+        <div className="flex flex-1 flex-col lg:pl-65">
         <main className="flex-1">{children}</main>
         <footer className="border-t px-4 py-8 text-center text-sm text-muted-foreground">
           <p className="mx-auto max-w-xl text-pretty">Independent demo. Sandbox only, no real money. Not affiliated with or endorsed by any payment scheme.</p>
           <p className="mx-auto mt-2 max-w-xl text-pretty">Your API key is sealed in an encrypted cookie in this browser and expires after eight hours. <Link href="/privacy" className="underline underline-offset-4">Privacy</Link></p>
         </footer>
+        </div>
         <Toaster richColors closeButton />
       </body>
     </html>

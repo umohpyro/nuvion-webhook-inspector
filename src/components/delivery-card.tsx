@@ -29,11 +29,11 @@ export function DeliveryCard({ d }: { d: Delivery }) {
   }
 
   return (
-    <li className="rounded-2xl border bg-card">
+    <li className={`rounded-2xl border border-l-4 bg-card shadow-card ${ok ? "border-l-ok" : "border-l-destructive"}`}>
       <details>
         <summary className="flex cursor-pointer flex-wrap items-center gap-3 p-3">
           <span className={`rounded-full px-2.5 py-0.5 text-xs font-bold ${ok ? "bg-ok/15 text-ok" : "bg-destructive/15 text-destructive"}`}>{d.status ?? "no response"}</span>
-          <span className="font-mono text-sm font-semibold">{d.event}</span>
+          <span className="rounded-full bg-hook/15 px-2.5 py-0.5 font-mono text-sm font-semibold text-hook">{d.event}</span>
           <span className="ml-auto text-xs text-muted-foreground">{d.at} · {d.ms} ms</span>
         </summary>
         <div className="space-y-3 border-t p-3 text-sm">

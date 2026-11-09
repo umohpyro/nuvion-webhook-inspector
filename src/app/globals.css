@@ -13,6 +13,7 @@
   --color-pink-text: var(--pink-text);
   --color-ok: var(--ok);
   --color-warn: var(--warn);
+  --color-hook: var(--hook);
   --color-band: var(--band);
   --color-band-foreground: var(--band-foreground);
   --color-sand-fixed: var(--sand-fixed);
@@ -66,6 +67,7 @@
   --pink-text: #c41e68;           /* pink as text on light, AA */
   --ok: #1f7a4a;                  /* successful status */
   --warn: #a8531c;                /* pending status; brown, not amber */
+  --hook: #0e8f83;                /* Hookline's category colour (teal): page bands, active nav, event dots */
   --band: #300402;                /* dark frame: header, page title */
   --band-foreground: #f4f2f2;
   --sand-fixed: #f6dcd5;          /* sand on dark bands in both themes */
@@ -92,6 +94,7 @@
   --pink-text: #ff77ae;
   --ok: #6fd69b;
   --warn: #ffb38a;
+  --hook: #3cc4b6;                /* teal lifted for dark grounds */
   --band: #0f0302;
   --shadow: 0 18px 44px -24px rgba(0, 0, 0, 0.8);
 }
