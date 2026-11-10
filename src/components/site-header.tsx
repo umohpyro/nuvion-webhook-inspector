@@ -3,6 +3,7 @@
 import { Webhook } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { disconnect } from "@/app/settings/actions";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 
 const LINKS = [
@@ -11,6 +12,14 @@ const LINKS = [
   { href: "/verify", label: "Verify", dot: "bg-[#2f6fe0]" },
   { href: "/settings", label: "Settings", dot: "bg-sand-fixed" },
 ];
+
+function Disconnect({ className }: { className: string }) {
+  return (
+    <form action={disconnect}>
+      <button type="submit" className={className}>Disconnect key</button>
+    </form>
+  );
+}
 
 function Brand() {
   return (
@@ -23,7 +32,7 @@ function Brand() {
 }
 
 /** Phone and tablet: a compact top bar. From `lg` the sidebar takes over. */
-export function TopBar() {
+export function TopBar({ connected }: { connected: boolean }) {
   const pathname = usePathname();
   const current = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
   return (
@@ -37,6 +46,7 @@ export function TopBar() {
               {l.label}
             </Link>
           ))}
+          {connected && <Disconnect className="rounded-full px-3 py-2 text-band-foreground/75 hover:bg-white/10" />}
         </nav>
       </div>
     </header>
@@ -44,7 +54,7 @@ export function TopBar() {
 }
 
 /** Desktop: a dark Earth sidebar with a coloured dot per section and the theme switcher at the foot. */
-export function SideNav() {
+export function SideNav({ connected }: { connected: boolean }) {
   const pathname = usePathname();
   const current = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
   return (
@@ -59,6 +69,7 @@ export function SideNav() {
           </Link>
         ))}
       </nav>
+      {connected && <Disconnect className="mb-3 rounded-xl px-3 py-2.5 text-left text-sm font-semibold text-band-foreground/75 hover:bg-white/10 hover:text-band-foreground" />}
       <ThemeSwitcher />
     </aside>
   );

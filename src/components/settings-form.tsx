@@ -98,6 +98,9 @@ export function SettingsForm({ connectedEntityId }: { connectedEntityId: string 
             setEntityId(r.entities[0]?.id ?? "");
             if (r.entities.length === 0) setError("No approved entities found. Create and submit one in the dashboard, then try again.");
           })}>{pending && !entities ? "Looking up…" : "Look up my entities"}</Button>
+          {(apiKey || entities || manualId) && (
+            <Button variant="ghost" disabled={pending} className="ml-2" onClick={() => { setApiKey(""); setEntities(null); setEntityId(""); setManualId(""); setError(null); }}>Clear key</Button>
+          )}
           <div className="space-y-2 border-t pt-4">
             <Label htmlFor="manualId">Or enter your entity ID</Label>
             <p className="text-sm text-muted-foreground">Use this if your key cannot list entities. Find the ID in your sandbox dashboard.</p>

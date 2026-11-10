@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Figtree, Geist_Mono } from "next/font/google";
 import { Suspense } from "react";
+import { readConfig } from "@/lib/config";
 import { SideNav, TopBar } from "@/components/site-header";
 import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
@@ -15,6 +16,16 @@ export const metadata: Metadata = {
   description: "An example webhook inspector for the Nuvion sandbox: register an endpoint, send test events, read every delivery and verify signatures.",
 };
 
+async function Nav() {
+  const connected = (await readConfig()) !== null;
+  return (
+    <>
+      <TopBar connected={connected} />
+      <SideNav connected={connected} />
+    </>
+  );
+}
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${figtree.variable} ${mono.variable} h-full antialiased`} suppressHydrationWarning>
@@ -24,8 +35,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="flex min-h-full flex-col">
         {/* usePathname() reads the URL, so the navigation streams in behind a placeholder of the same size. */}
         <Suspense fallback={<div className="h-[97px] bg-band lg:hidden" />}>
-          <TopBar />
-          <SideNav />
+          <Nav />
         </Suspense>
         <div className="flex flex-1 flex-col lg:pl-65">
         <main className="flex-1">{children}</main>
