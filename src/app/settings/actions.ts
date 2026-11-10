@@ -50,7 +50,7 @@ export async function connect(input: z.input<typeof configSchema>) {
     try {
       await nuvionAs(cfg.apiKey, "GET", `/entity-webhooks?entity_id=${cfg.entityId}&limit=1`);
     } catch (e) {
-      if (e instanceof NuvionError && e.httpStatus === 403) throw new ConfigError("This key can list entities but is not allowed to manage webhooks. Use a sandbox key that has webhook access.");
+      if (e instanceof NuvionError && e.httpStatus === 403) throw new ConfigError("This key's role cannot manage webhooks. Use a sandbox key with the Owner or Developer role.");
       throw e;
     }
     await saveConfig(cfg);

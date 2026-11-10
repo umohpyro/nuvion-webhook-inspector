@@ -51,7 +51,16 @@ npm run lint
 3. **The signature covers `{timestamp}.{raw body}`.** Use the `x-nuvion-event-timestamp` header exactly as received, including milliseconds, and compute over the raw bytes. Re-serializing parsed JSON can change the bytes and break the match. The delivery log stores the body as parsed JSON, so the in-page check there is a convenience, not a substitute for verifying the raw request.
 4. **Nuvion's own log is the event history.** `GET /webhook-logs` returns every attempt, retries and test deliveries included, so a receiver does not need to store events to be debuggable.
 5. **A test event is one attempt with no retries,** and it does not count toward blacklisting. A real endpoint that keeps failing is blacklisted, and the webhook list shows `blacklisted` as its status.
-6. **Not every key can do everything.** A key that can manage webhooks may be unable to list entities, which is why Settings also accepts an entity ID.
+6. **Not every key can do everything.** What a key can do depends on its role:
+
+   | Key role | Lists entities | Manages webhooks | Works with Hookline |
+   |---|---|---|---|
+   | Owner | Yes | Yes | Yes |
+   | Developer | No | Yes | Yes, enter the entity ID yourself |
+   | Admin | Yes | No | No |
+   | Operation | No | No | No |
+
+   That is why Settings also accepts an entity ID.
 
 ## Security
 

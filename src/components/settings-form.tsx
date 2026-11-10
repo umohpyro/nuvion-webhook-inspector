@@ -81,6 +81,10 @@ export function SettingsForm({ connectedEntityId }: { connectedEntityId: string 
             Open <a className="font-medium underline underline-offset-4" href={KEYS_URL} target="_blank" rel="noreferrer">Settings &gt; Developers</a> in the sandbox dashboard
             (<a className="underline underline-offset-4" href={DOCS_URL} target="_blank" rel="noreferrer">how API keys work</a>). Use a sandbox key only.
           </CardDescription>
+          <p className="rounded-xl bg-muted p-3 text-sm text-muted-foreground">
+            Hookline manages webhooks, so the key&apos;s role must allow that: <strong>Owner</strong> or <strong>Developer</strong>. An Owner key can also look up your entities.
+            A Developer key cannot, so enter the entity ID yourself. <strong>Admin</strong> and <strong>Operation</strong> keys cannot manage webhooks and will be refused.
+          </p>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
