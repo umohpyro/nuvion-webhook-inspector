@@ -4,7 +4,8 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { clearConfig, configSchema, getConfig, saveConfig } from "@/lib/config";
 import { guard, throttle } from "@/lib/action";
-import { nuvionAs, type List } from "@/lib/nuvion";
+import { ConfigError } from "@/lib/env";
+import { NuvionError, nuvionAs, type List } from "@/lib/nuvion";
 
 /*
  * Server Actions are public POST endpoints. These ones only ever act with the key the visitor typed, on that
@@ -46,7 +47,12 @@ export async function connect(input: z.input<typeof configSchema>) {
   return guard(async () => {
     await throttle();
     const cfg = configSchema.parse(input);
-    await nuvionAs(cfg.apiKey, "GET", `/entity-webhooks?entity_id=${cfg.entityId}&limit=1`);
+    try {
+      await nuvionAs(cfg.apiKey, "GET", `/entity-webhooks?entity_id=${cfg.entityId}&limit=1`);
+    } catch (e) {
+      if (e instanceof NuvionError && e.httpStatus === 403) throw new ConfigError("This key can list entities but is not allowed to manage webhooks. Use a sandbox key that has webhook access.");
+      throw e;
+    }
     await saveConfig(cfg);
     revalidatePath("/", "layout");
     return {};
