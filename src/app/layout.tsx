@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Figtree, Geist_Mono } from "next/font/google";
 import { Suspense } from "react";
 import { readConfig } from "@/lib/config";
-import { SideNav, TopBar } from "@/components/site-header";
+import { SiteNav } from "@/components/site-header";
 import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
@@ -18,12 +18,7 @@ export const metadata: Metadata = {
 
 async function Nav() {
   const connected = (await readConfig()) !== null;
-  return (
-    <>
-      <TopBar connected={connected} />
-      <SideNav connected={connected} />
-    </>
-  );
+  return <SiteNav connected={connected} />;
 }
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -34,10 +29,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       </head>
       <body className="flex min-h-full flex-col">
         {/* usePathname() reads the URL, so the navigation streams in behind a placeholder of the same size. */}
-        <Suspense fallback={<div className="h-[97px] bg-band lg:hidden" />}>
+        <Suspense fallback={<div className="h-[104px] border-b bg-card sm:h-[57px]" />}>
           <Nav />
         </Suspense>
-        <div className="flex flex-1 flex-col lg:pl-65">
+        <div className="flex flex-1 flex-col">
         <main className="flex-1">{children}</main>
         <footer className="border-t px-4 py-8 text-center text-sm text-muted-foreground">
           <p className="mx-auto max-w-xl text-pretty">Independent demo. Sandbox only, no real money. Not affiliated with or endorsed by any payment scheme.</p>

@@ -14,6 +14,8 @@
   --color-ok: var(--ok);
   --color-warn: var(--warn);
   --color-hook: var(--hook);
+  --color-hero-a: var(--hero-a);
+  --color-hero-b: var(--hero-b);
   --color-band: var(--band);
   --color-band-foreground: var(--band-foreground);
   --color-sand-fixed: var(--sand-fixed);
@@ -68,7 +70,9 @@
   --ok: #1f7a4a;                  /* successful status */
   --warn: #a8531c;                /* pending status; brown, not amber */
   --hook: #0e8f83;                /* Hookline's category colour (teal): page bands, active nav, event dots */
-  --band: #300402;                /* dark frame: header, page title */
+  --hero-a: #0e8f83;              /* page hero: Hookline teal... */
+  --hero-b: #0b3b4a;              /* ...into deep sea blue */
+  --band: #300402;                /* dark code panels */
   --band-foreground: #f4f2f2;
   --sand-fixed: #f6dcd5;          /* sand on dark bands in both themes */
   --shadow: 0 18px 44px -24px rgba(48, 4, 2, 0.4);
@@ -95,6 +99,8 @@
   --ok: #6fd69b;
   --warn: #ffb38a;
   --hook: #3cc4b6;                /* teal lifted for dark grounds */
+  --hero-a: #0b7168;
+  --hero-b: #082a36;
   --band: #0f0302;
   --shadow: 0 18px 44px -24px rgba(0, 0, 0, 0.8);
 }
